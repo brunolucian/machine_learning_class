@@ -3,8 +3,9 @@
 require(FNN)
 data(iris)
 
+set.seed(321)
 ## Split in train + test set
-idxs <- sample(1:nrow(iris),as.integer(0.7*nrow(iris)))
+idxs <- sample(1:nrow(iris),as.integer(0.8*nrow(iris)))
 
 trainIris <- iris[idxs,]
 y_train <- trainIris$Species
@@ -39,22 +40,15 @@ plot(seq(1,15,by = 2),erros,type = "b",pch=16,xlab = "k vizinhos",ylab = "Erro d
 
 ## The resulting confusion matrix
 
-knn5<-as.vector(as.array(knn(train = trainIris,test = testIris,cl = y_train,k = 5)))
+knn7<-as.vector(as.array(knn(train = trainIris,test = testIris,cl = y_train,k = 7)))
 
-table(y_test,knn5)
-
-## Now a 5-nearest neighbours model with normalization
-nn5 <- kNN(Species ~ .,trainIris,testIris,norm=TRUE,k=5)
-
-## The resulting confusion matrix
-table(testIris[,'Species'],nn5)
-
+table(y_test,knn7)
 
 
 # load the package
 library(VGAM)
 # fit model
-fit <- vglm(Species~., family = gaussian, data=iris)
+fit <- vglm(Species~., family = multinomial, data=iris)
 # summarize the fit
 summary(fit)
 # make predictions
