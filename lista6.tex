@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{Sweave}
+\begin{document}
+\input{lista6-concordance}
+
+\section*{Exercise 6.11}
+
+\begin{itemize}
+\item[(a)] O modelo nao-parametrico possui a seguinte equação para y.
+
+\begin{equation}
+g(x)=\sum\frac{\Phi(\frac{|x-x_{n}|}{\sigma})}{\sum\Phi(\frac{|x-x_{i}|}{\sigma})}y_{n}
+\end{equation}
+Logo, quando $|x| \to \infty$, o kernel gaussiando vai para zero fazendo o valor de g(x) ir para zero.
+
+
+O parametrico possui o seguinte comportamento,
+
+\begin{align*}
+h(x)&=\sum w_{n}z_{in}+w_{0}+\epsilon_{i} \\
+&\rightarrow Y=\hat{Z}w+\epsilon \\
+&\to \tilde{w}=(\tilde{Z}^{T}\overline{Z})Z^{T}y
+\end{align*}
+
+Agora quando $|x| \to \infty$, o valor da saida do kernel também vai para zero, porém, o modelo linear possui o valor de intercpeto, que não é multiplicado pela função kernel, o que faz do resultado da hipótese ser igual ao valor do intercepto.
+
+\item[(b)] Quando $Z$ é invertível, os parâmetros da hipótese para y se descrevem da seguinte forma:
+
+\begin{align*}
+Y&=\hat{Z}w+\epsilon \\
+\hat{Z}^{-1}Y&=\hat{Z}^{-1}\hat{Z}w\rightarrow w=\hat{Z}^{-1}Y
+\end{align*}
+
+Com o  $E_{in}$ 
+
+\begin{align*}
+Y-\hat{Y}&=Y-\hat{Z}\hat{Z}^{-1}Y\\ 
+&\rightarrow Y-\hat{Y}=Y-IY \\ 
+&\rightarrow Y-\hat{Y}=0
+\end{align*}
+
+\end{itemize}
+
+
+\end{document}
