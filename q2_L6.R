@@ -31,11 +31,12 @@ K_means2 <- function(x, centers, distFun, nItter) {
   dados<-list()
   erro<-list()
   for(i in 1:nrow(centers)){
-    dados[[i]]<-ktest[which(clusters==i),]
+    dados[[i]]<-x[which(clusters==i),]
     erro[[i]]<-apply(dados[[i]],1,function(x)norm(rbind(x,centers[i,])))
   }
   erros<-lapply(X = erro,FUN = sum)
-  list(clusters=clusterHistory, centers=centerHistory,erros=erros)
+  erro_geral<-sum((unlist(erros)))
+  list(clusters=clusterHistory, centers=centerHistory,erros=erro_geral)
 }
 
 y=rnorm(500,1.65)
@@ -51,9 +52,10 @@ ktest<-ktest[-idx,]
 
 res <- K_means2(ktest, centers, euclid, 100)
 
-# dados<-list()
-# erro<-list()
-# for(i in 1:nrow(centers)){
-# dados[[i]]<-ktest[which(res$clusters[[length(res$clusters)]]==i),]
-# erro[[i]]<-apply(dados[[i]],1,function(x)norm(rbind(x,res$centers[[1]][i,])))
-# }
+
+######### letra b)
+require(jpeg)
+
+
+
+
