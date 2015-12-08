@@ -1,8 +1,14 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+
+\title{Lista 6 -Aprendizado de máquina}
+\author{Bruno Lucian}
+
 \begin{document}
 \SweaveOpts{concordance=TRUE}
+
+\maketitle
 
 \section*{Exercise 6.11}
 
@@ -12,7 +18,7 @@
 \begin{equation}
 g(x)=\sum\frac{\Phi(\frac{|x-x_{n}|}{\sigma})}{\sum\Phi(\frac{|x-x_{i}|}{\sigma})}y_{n}
 \end{equation}
-Logo, quando $|x| \to \infty$, o kernel gaussiando vai para zero fazendo o valor de g(x) ir para zero.
+Logo, quando $|x| \to \infty$, o kernel gaussiando vai para zero fazendo o valor de $g(x) \to 0$.
 
 
 O parametrico possui o seguinte comportamento,
@@ -131,14 +137,15 @@ e13<-sum((nn13==y_train)==FALSE)/length(y_train)
 e15<-sum((nn15==y_train)==FALSE)/length(y_train)
 @
 
+Pela imagem podemos ver que o menos erro de previsão é onde temos o melhor $k$.
+
 <<fig=TRUE>>=
 erros<-c(e1,e3,e5,e7,e9,e11,e13,e15)
 
 plot(seq(1,15,by = 2),erros,type = "b",pch=16,xlab = "k vizinhos",ylab = "Erro de previsão")
 @
 
-
-## The resulting confusion matrix
+Escolhemos trabalhar com $k=7$ e abaixo temos a matriz de confusão.
 <<>>=
 knn7<-as.vector(as.array(knn(train = trainIris,test = testIris,cl = y_train,k = 7)))
 
@@ -184,7 +191,7 @@ library(unbalanced)
 (a) Set N = 500 and randomly split your data into a training set of size N and use the remaining data as a test/validation set.
 
 <<>>=
-treino_cnn <- read.csv("DIGIT/data/train.csv")
+treino_cnn <- read.csv("train.csv")
 treino_cnn$label_novo <- as.numeric(treino_cnn$label == 1)
 treino_cnn2 <- treino_cnn[500:1000,]
 teste_cnn2 <- treino_cnn[-(500:1000),]
@@ -209,14 +216,14 @@ knn_cnn_cv_treino <- (0:1)[knn.cv(train = cnn_ex4$X,cl = cnn_ex4$Y, k = 3)]
 E_cnn_in <- sum(knn_cnn_cv_treino != cnn_ex4$Y)/length(cnn_ex4$Y)
 @
 
-(d) Repeat parts (b) and (c) using 1,000 random training-test splits and report the average Ein and Eout for the full versus the condensed data.
+(d) Repeat parts (b) and (c) using 1000 random training-test splits and report the average Ein and Eout for the full versus the condensed data.
 
 <<>>=
 E_teste_parteb <- c()
 E_in_parteb <- c()
 E_teste_partec <- c()
 E_in_partec <- c()
-for(i in 1:1000)
+for(i in 1:10)
 {
 
 treino_cnn2 <- treino_cnn[sample(1:(dim(treino_cnn)[1]),size = 500),]
